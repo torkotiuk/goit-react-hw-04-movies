@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import imgDefault from './no-user-image-icon-27.jpg';
 
+const imgURL = 'https://image.tmdb.org/t/p/w200';
 const KEY = 'b623cf494fc852caec180044c42a9501';
 
 class Cast extends Component {
@@ -24,7 +26,14 @@ class Cast extends Component {
       <ul>
         {actors.map(actor => (
           <li key={actor.id}>
-            <img src={actor.profile_path} alt={actor.name} />
+            <img
+              src={
+                actor.profile_path
+                  ? `${imgURL}${actor.profile_path}`
+                  : imgDefault
+              }
+              alt={actor.name}
+            />
             <p>{actor.name}</p>
             <p>{actor.character}</p>
           </li>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import NotFoundPage from '../../pages/NotFoundPage';
-import { Route, Link } from 'react-router-dom';
+// import NotFoundPage from '../../pages/NotFoundPage';
+// import { Route, Link } from 'react-router-dom';
 
 const KEY = 'b623cf494fc852caec180044c42a9501';
 
@@ -18,30 +18,42 @@ class Reviews extends Component {
     );
 
     this.setState({ reviews: response.data.results });
-    // console.log(response.data.results);
+    // console.log('>>>', response.data.results);
   }
+
+  checkReviews = () => {
+    if (this.state.reviews.length > 0) {
+      return true;
+    }
+  };
 
   render() {
     const { reviews } = this.state;
+    const doesReviewsLength = this.checkReviews();
 
     return (
+      // <ul>
+      //   {reviews.map(review => (
+      //     <li key={review.id}>
+      //       <h3>Author: {review.author}</h3>
+      //       <p>{review.content}</p>
+      //     </li>
+      //   ))}
+      // </ul>
       <ul>
-        {reviews.length > 0 ? (
+        {!doesReviewsLength ? (
+          <div>We don't have any reviews for this movie</div>
+        ) : (
           reviews.map(review => (
             <li key={review.id}>
               <h3>Author: {review.author}</h3>
               <p>{review.content}</p>
             </li>
           ))
-        ) : (
-          <div>We don't have any reviews for this movie</div>
         )}
       </ul>
     );
   }
-}
-{
-  /* <div>We don't have any reviews for this movie</div> */
 }
 
 export default Reviews;
