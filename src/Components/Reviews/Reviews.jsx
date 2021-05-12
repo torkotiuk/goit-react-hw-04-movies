@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import NotFoundPage from '../../pages/NotFoundPage';
-// import { Route, Link } from 'react-router-dom';
+import Styles from './Reviews.module.scss';
 
 const KEY = 'b623cf494fc852caec180044c42a9501';
 
@@ -18,7 +17,6 @@ class Reviews extends Component {
     );
 
     this.setState({ reviews: response.data.results });
-    // console.log('>>>', response.data.results);
   }
 
   checkReviews = () => {
@@ -32,14 +30,6 @@ class Reviews extends Component {
     const doesReviewsLength = this.checkReviews();
 
     return (
-      // <ul>
-      //   {reviews.map(review => (
-      //     <li key={review.id}>
-      //       <h3>Author: {review.author}</h3>
-      //       <p>{review.content}</p>
-      //     </li>
-      //   ))}
-      // </ul>
       <ul>
         {!doesReviewsLength ? (
           <div>We don't have any reviews for this movie</div>
@@ -47,7 +37,7 @@ class Reviews extends Component {
           reviews.map(review => (
             <li key={review.id}>
               <h3>Author: {review.author}</h3>
-              <p>{review.content}</p>
+              <p className={Styles.ReviewContent}>{review.content}</p>
             </li>
           ))
         )}

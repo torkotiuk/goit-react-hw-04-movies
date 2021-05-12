@@ -1,0 +1,34 @@
+.Cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Cast-listItem {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.Cast-cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 220px;
+
+  background-color: rgb(212, 213, 219);
+}
+
+.Cast-thumb {
+  height: 220px;
+  width: 220px;
+}
+
+.Cast-thumb > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  // object-position: top;
+}

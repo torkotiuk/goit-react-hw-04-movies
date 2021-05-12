@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import axios from 'axios';
 
 const KEY = 'b623cf494fc852caec180044c42a9501';
@@ -12,24 +11,44 @@ class MoviesPage extends Component {
     query: '',
   };
 
+  componentDidMount() {
+    if (this.props.location.state && this.props.location.state.searchQuery) {
+      this.setState({ query: this.props.location.state.searchQuery });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.query !== this.state.query) {
+      this.searchMovies();
+    }
+  }
+
   //input change
   handleChange = e => {
-    this.setState({ query: e.currentTarget.value });
+    this.setState({ query: e.currentTarget.value.trim() });
   };
 
-  //submit form
   handleSubmit = e => {
     e.preventDefault();
+    this.searchMovies();
+    //
     const { query } = this.state;
-    axios
-      .get(
-        `/3/search/movie?api_key=${KEY}&language=en-US&page=1&include_adult=false&query=${query}`,
-      )
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `query=${query}`,
+      state: { searchQuery: `${query}` },
+    });
+    //
+    this.setState({ query: '' });
+  };
+
+  searchMovies = () => {
+    const { query } = this.state;
+    return axios
+      .get(`/3/search/movie?api_key=${KEY}&query=${query}`)
       .then(response => {
         this.setState({ movies: response.data.results });
       });
-
-    this.setState({ query: '' });
   };
 
   render() {
@@ -55,12 +74,6 @@ class MoviesPage extends Component {
               >
                 {movie.title}
               </Link>
-              {/* next code work */}
-              {/* <Link to={`/movies/${movie.id}`}>{movie.title}</Link> */}
-              {/* whay doesn't work next code????????????? */}
-              {/* <Link to={`${this.props.match.url}/${movie.id}`}>
-      {movie.title}
-    </Link> */}
             </li>
           ))}
         </ul>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Cast.scss';
 import imgDefault from './no-user-image-icon-27.jpg';
 
 const imgURL = 'https://image.tmdb.org/t/p/w200';
@@ -15,27 +16,29 @@ class Cast extends Component {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
     );
-
-    // this.setState({ ...response.data.cast });
     this.setState({ actors: response.data.cast });
   }
 
   render() {
     const { actors } = this.state;
     return (
-      <ul>
+      <ul className="Cast-list">
         {actors.map(actor => (
-          <li key={actor.id}>
-            <img
-              src={
-                actor.profile_path
-                  ? `${imgURL}${actor.profile_path}`
-                  : imgDefault
-              }
-              alt={actor.name}
-            />
-            <p>{actor.name}</p>
-            <p>{actor.character}</p>
+          <li className="Cast-listItem" key={actor.id}>
+            <div className="Cast-cardContainer">
+              <div className="Cast-thumb">
+                <img
+                  src={
+                    actor.profile_path
+                      ? `${imgURL}${actor.profile_path}`
+                      : imgDefault
+                  }
+                  alt={actor.name}
+                />
+              </div>
+              <p>{actor.name}</p>
+              <p>{actor.character}</p>
+            </div>
           </li>
         ))}
       </ul>

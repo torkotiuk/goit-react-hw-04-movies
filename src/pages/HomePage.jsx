@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-
+import { NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import Styles from './Pages.module.scss';
 
-// https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 const KEY = 'b623cf494fc852caec180044c42a9501';
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 
@@ -11,40 +10,28 @@ class Homepage extends Component {
   state = { moviesPopular: [] };
 
   async componentDidMount() {
-    const response = await axios.get(
-      `/3/discover/movie?api_key=${KEY}&language=en-US&sort_by=popularity.desc`,
-    );
-
+    const response = await axios.get(`/3/trending/all/day?api_key=${KEY}`);
     this.setState({ moviesPopular: response.data.results });
   }
 
   render() {
     const { moviesPopular } = this.state;
-    //in this page '/' = this.props.match.url
-    // console.log(this.props.match.url);
 
-    // console.log(this.props.location);
     return (
       <div>
-        <h1>Home page</h1>
+        <h1 className={Styles.Title}>Trending movies</h1>
 
         <ul>
           {moviesPopular.map(movie => (
-            <li key={movie.id}>
-              <Link
+            <li className={Styles.HomeItem} key={movie.id}>
+              <NavLink
                 to={{
                   pathname: `/movies/${movie.id}`,
                   state: { from: this.props.location },
                 }}
               >
                 {movie.title}
-              </Link>
-              {/* next code work */}
-              {/* <Link to={`/movies/${movie.id}`}>{movie.title}</Link> */}
-              {/* whay doesn't work next code????????????? */}
-              {/* <Link to={`${this.props.match.url}/${movie.id}`}>
-                {movie.title}
-              </Link> */}
+              </NavLink>
             </li>
           ))}
         </ul>
