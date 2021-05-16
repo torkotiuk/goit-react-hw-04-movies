@@ -14,12 +14,13 @@ class MoviesPage extends Component {
   componentDidMount() {
     if (this.props.location.state && this.props.location.state.searchQuery) {
       this.setState({ query: this.props.location.state.searchQuery });
-    }
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.searchMovies();
+      const query = this.props.location.state.searchQuery;
+      axios
+        .get(`/3/search/movie?api_key=${KEY}&query=${query}`)
+        .then(response => {
+          this.setState({ movies: response.data.results });
+        });
     }
   }
 
@@ -32,14 +33,19 @@ class MoviesPage extends Component {
     e.preventDefault();
     this.searchMovies();
     //
+    // console.log(this.state.query);
+    this.setHistory();
+    //
+    this.setState({ query: '' });
+  };
+
+  setHistory = () => {
     const { query } = this.state;
     this.props.history.push({
-      pathname: this.props.location.pathname,
+      // pathname: this.props.location.pathname,
       search: `query=${query}`,
       state: { searchQuery: `${query}` },
     });
-    //
-    this.setState({ query: '' });
   };
 
   searchMovies = () => {
@@ -52,6 +58,8 @@ class MoviesPage extends Component {
   };
 
   render() {
+    console.log('MoviesPage > location.search', this.props.location.search);
+    // console.log('MoviesPage > match', this.props.match);
     return (
       <>
         <form onSubmit={this.handleSubmit}>

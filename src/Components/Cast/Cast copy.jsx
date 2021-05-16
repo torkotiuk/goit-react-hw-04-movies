@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Cast.scss';
 import imgDefault from './no-user-image-icon-27.jpg';
+import { useHistory } from 'react-router-dom';
 
 const imgURL = 'https://image.tmdb.org/t/p/w200';
 const KEY = 'b623cf494fc852caec180044c42a9501';
@@ -19,11 +20,8 @@ class Cast extends Component {
     this.setState({ actors: response.data.cast });
   }
 
-  // handleGoHome = () => {
-  //   const history = useHistory();
-  // }
-
   render() {
+    
     //
     const { actors } = this.state;
 
