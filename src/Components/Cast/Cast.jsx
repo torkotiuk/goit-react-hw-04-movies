@@ -9,6 +9,7 @@ const KEY = 'b623cf494fc852caec180044c42a9501';
 class Cast extends Component {
   state = {
     actors: [],
+    // castLocation: '',
   };
 
   async componentDidMount() {
@@ -16,39 +17,46 @@ class Cast extends Component {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
     );
-    this.setState({ actors: response.data.cast });
+    this.setState({ actors: response.data.cast,
+    // castLocation: this.props.location.state
+    });
   }
 
-  // handleGoHome = () => {
-  //   const history = useHistory();
-  // }
-
+  checkCasts = () => {
+    if (this.state.actors.length > 0) {
+      return true;
+    }
+  };
+  
   render() {
     //
     const { actors } = this.state;
-
-    console.log('Cast location', this.props.location);
-
+    const doesCastsLength = this.checkCasts();
+    
     return (
       <ul className="Cast-list">
-        {actors.map(actor => (
-          <li className="Cast-listItem" key={actor.id}>
-            <div className="Cast-cardContainer">
-              <div className="Cast-thumb">
-                <img
-                  src={
-                    actor.profile_path
-                      ? `${imgURL}${actor.profile_path}`
-                      : imgDefault
-                  }
-                  alt={actor.name}
-                />
+        {!doesCastsLength ? (<p>Sorry, we haven't prepared a list of actors yet</p>):
+       (
+          actors.map(actor => (
+            <li className="Cast-listItem" key={actor.id}>
+              <div className="Cast-cardContainer">
+                <div className="Cast-thumb">
+                  <img
+                    src={
+                      actor.profile_path
+                        ? `${imgURL}${actor.profile_path}`
+                        : imgDefault
+                    }
+                    alt={actor.name}
+                  />
+                </div>
+                <p>{actor.name}</p>
+                <p>{actor.character}</p>
               </div>
-              <p>{actor.name}</p>
-              <p>{actor.character}</p>
-            </div>
-          </li>
-        ))}
+            </li>
+          ))
+        )
+        }
       </ul>
     );
   }

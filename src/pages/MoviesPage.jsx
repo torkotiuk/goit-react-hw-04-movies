@@ -58,7 +58,7 @@ class MoviesPage extends Component {
   };
 
   render() {
-    console.log('MoviesPage > location.search', this.props.location.search);
+    // console.log('MoviesPage > location.search', this.props.location.search);
     // console.log('MoviesPage > match', this.props.match);
     return (
       <>

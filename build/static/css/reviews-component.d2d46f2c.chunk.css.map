@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Components/Reviews/Reviews.module.scss"],"names":[],"mappings":"AAAA,8BACE,cAAe,CACf,kBAAmB","file":"reviews-component.d2d46f2c.chunk.css","sourcesContent":[".ReviewContent {\r\n  margin-top: 5px;\r\n  margin-bottom: 10px;\r\n}\r\n"]}

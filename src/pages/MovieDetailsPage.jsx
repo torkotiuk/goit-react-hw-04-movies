@@ -27,7 +27,7 @@ class MovieDetailsPage extends Component {
   render() {
     const { url, path } = this.props.match;
     const { movieId } = this.props.match.params;
-    console.log(this.props);
+    console.log(this.props.location.state.from);
     return (
       <div>
         <div className={Styles.MoviesDetailCont}>
@@ -55,7 +55,7 @@ class MovieDetailsPage extends Component {
             <Link
               to={{
                 pathname: `${url}/cast`,
-                state: { from: this.props.location },
+                state: { from: this.props.location.state.from },
               }}
             >
               Cast
@@ -66,7 +66,7 @@ class MovieDetailsPage extends Component {
             <Link
               to={{
                 pathname: `${url}/reviews`,
-                state: { from: this.props.location },
+                state: { from: this.props.location.state.from },
               }}
             >
               Reviews

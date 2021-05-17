@@ -24,7 +24,7 @@ class Reviews extends Component {
       return true;
     }
   };
-
+  
   render() {
     const { reviews } = this.state;
     const doesReviewsLength = this.checkReviews();
