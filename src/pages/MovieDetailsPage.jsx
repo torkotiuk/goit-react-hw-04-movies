@@ -27,7 +27,7 @@ class MovieDetailsPage extends Component {
   render() {
     const { url, path } = this.props.match;
     const { movieId } = this.props.match.params;
-    console.log(this.props.location.state.from);
+    
     return (
       <div>
         <div className={Styles.MoviesDetailCont}>

@@ -16,9 +16,7 @@ class Homepage extends Component {
 
   render() {
     const { moviesPopular } = this.state;
-    // console.log(this.props.match.url);
-    // console.log(this.props);
-    // console.log('HOME location', this.props.location.state);
+
     return (
       <div>
         <h1 className={Styles.Title}>Trending movies</h1>
